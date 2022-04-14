@@ -13,7 +13,7 @@ REGEX_COMMENTS = (
     r"(?<=(\/\*|\{#))((.|[\r\n])+?)(?=(\*+\/|#\}))|[ \t]*--.*"
 )
 REGEX_SPLIT = r"[\s]+"
-IGNORE_WORDS = ["", "(", "{{"]  # pragma: no mutate
+IGNORE_WORDS = ["", "(", "{{","simple_cte"]  # pragma: no mutate
 REGEX_PARENTHESIS = r"([\(\)])"  # pragma: no mutate
 
 
