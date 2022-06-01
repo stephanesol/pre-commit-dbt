@@ -5,11 +5,8 @@ from typing import Optional
 from typing import Sequence
 
 from pre_commit_dbt.utils import add_filenames_args
-from pre_commit_dbt.utils import add_manifest_args
 from pre_commit_dbt.utils import get_filenames
-from pre_commit_dbt.utils import get_json
 from pre_commit_dbt.utils import get_model_schemas
-from pre_commit_dbt.utils import get_model_sqls
 from pre_commit_dbt.utils import JsonOpenError
 
 
@@ -46,7 +43,6 @@ def has_key(
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
     add_filenames_args(parser)
-    add_manifest_args(parser)
 
     parser.add_argument(
         "--keys",
@@ -57,14 +53,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     args = parser.parse_args(argv)
 
-    try:
-        manifest = get_json(args.manifest)
-    except JsonOpenError as e:
-        print(f"Unable to load manifest file ({e})")
-        return 1
-
     return has_key(
-        paths=args.filenames, manifest=manifest, keys=args.keys
+        paths=args.filenames, keys=args.keys
     )
 
 
