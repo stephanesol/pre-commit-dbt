@@ -4,69 +4,61 @@ from typing import Dict
 from typing import Optional
 from typing import Sequence
 
+import yaml
+
 from pre_commit_dbt.utils import add_filenames_args
-from pre_commit_dbt.utils import add_manifest_args
 from pre_commit_dbt.utils import get_filenames
-from pre_commit_dbt.utils import get_json
 from pre_commit_dbt.utils import get_model_schemas
-from pre_commit_dbt.utils import get_model_sqls
-from pre_commit_dbt.utils import JsonOpenError
 
 
-def has_key(
-    paths: Sequence[str], manifest: Dict[str, Any], keys: Sequence[str]
-) -> int:
+def has_key(paths: Sequence[str], keys: Sequence[str]) -> int:
     target_keys = set(keys)
     status_code = 0
     ymls = get_filenames(paths, [".yml", ".yaml"])
-    sqls = get_model_sqls(paths, manifest)
-    filenames = set(sqls.keys())
-    #get model schemas from yaml
-    models = get_model_schemas(list(ymls.values()), filenames)
-    # convert to sets
+    filenames = set(ymls.keys())
+
+    schema_paths = list(ymls.values())
+
+    # print(schema_paths)
+    # print(filenames)
+
+    schemas = get_model_schemas(schema_paths, filenames, all_schemas=True)
+
+    # for schema in schemas:
+    #     print(schema)
+    #     print(set(schema.schema.keys()))
+
     models_missing_keys = {}
 
-    for model in models:
-        missing_keys = []
-        for key in target_keys:
-            if model.get(key) is None:
-                missing_keys.append(key)
+    for schema in schemas:
+        schema_keys = set(schema.schema.keys())
+        missing_keys = target_keys - schema_keys
         if missing_keys:
-            models_missing_keys[model.filename] = missing_keys
-
+            models_missing_keys[schema.file] = missing_keys
+            status_code = 1
 
     for model, missing_keys in models_missing_keys.items():
-        status_code = 1
-        result = "\n- ".join(list(missing_keys))  # pragma: no mutate
         print(
-            f"{sqls.get(model)}: "
-            f"does not have some of the keys defined:\n- {result}",
+            f"{model} : missing keys : {', '.join(missing_keys)}"
         )
-    return status_code
 
+    return status_code
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()
     add_filenames_args(parser)
-    add_manifest_args(parser)
 
     parser.add_argument(
         "--keys",
         nargs="+",
         required=True,
-        help="List of required key in the model.",
+        help="List of required key in part of model.",
     )
 
     args = parser.parse_args(argv)
 
-    try:
-        manifest = get_json(args.manifest)
-    except JsonOpenError as e:
-        print(f"Unable to load manifest file ({e})")
-        return 1
-
     return has_key(
-        paths=args.filenames, manifest=manifest, keys=args.keys
+        paths=args.filenames, keys=args.keys
     )
 
 
