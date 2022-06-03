@@ -9,24 +9,17 @@ import yaml
 from pre_commit_dbt.utils import add_filenames_args
 from pre_commit_dbt.utils import get_filenames
 from pre_commit_dbt.utils import get_model_schemas
+from pre_commit_dbt.utils import JsonOpenError
 
 
-def has_key(paths: Sequence[str], keys: Sequence[str]) -> int:
+def has_key(
+    paths: Sequence[str], keys: Sequence[str]
+) -> int:
     target_keys = set(keys)
     status_code = 0
-    ymls = get_filenames(paths, [".yml", ".yaml"])
-    filenames = set(ymls.keys())
-
-    schema_paths = list(ymls.values())
-
-    # print(schema_paths)
-    # print(filenames)
-
-    schemas = get_model_schemas(schema_paths, filenames, all_schemas=True)
-
-    # for schema in schemas:
-    #     print(schema)
-    #     print(set(schema.schema.keys()))
+    filenames = get_filenames(paths, [".yml", ".yaml"])
+    #get model schemas from yaml
+    models = get_model_schemas(list(filenames.values()), filenames)
 
     models_missing_keys = {}
 
@@ -52,7 +45,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         "--keys",
         nargs="+",
         required=True,
-        help="List of required key in part of model.",
+        help="List of required keys in the model.",
     )
 
     args = parser.parse_args(argv)
