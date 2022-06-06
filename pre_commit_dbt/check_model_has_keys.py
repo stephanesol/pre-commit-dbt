@@ -4,6 +4,8 @@ from typing import Dict
 from typing import Optional
 from typing import Sequence
 
+import yaml
+
 from pre_commit_dbt.utils import add_filenames_args
 from pre_commit_dbt.utils import get_filenames
 from pre_commit_dbt.utils import get_model_schemas
@@ -14,31 +16,28 @@ def has_key(
     paths: Sequence[str], keys: Sequence[str]
 ) -> int:
     target_keys = set(keys)
-    status_code = 0
+    status_code = 1
     filenames = get_filenames(paths, [".yml", ".yaml"])
     #get model schemas from yaml
-    models = get_model_schemas(list(filenames.values()), filenames)
-    # convert to sets
+    models = get_model_schemas(list(filenames.values()), filenames, all_schemas=True)
+
     models_missing_keys = {}
 
-    for model in models:
-        missing_keys = []
-        for key in target_keys:
-            if model.get(key) is None:
-                missing_keys.append(key)
+    for schema in models:
+        schema_keys = set(schema.schema.keys())
+        missing_keys = target_keys - schema_keys
         if missing_keys:
-            models_missing_keys[model.filename] = missing_keys
+            models_missing_keys[schema.file] = missing_keys
 
+    if len(models_missing_keys) == 0:
+        status_code = 0
 
     for model, missing_keys in models_missing_keys.items():
-        status_code = 1
-        result = "\n- ".join(list(missing_keys))  # pragma: no mutate
         print(
-            f"{sqls.get(model)}: "
-            f"does not have some of the keys defined:\n- {result}",
+            f"{model} : missing keys : {', '.join(missing_keys)}"
         )
-    return status_code
 
+    return status_code
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = argparse.ArgumentParser()

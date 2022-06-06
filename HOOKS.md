@@ -11,7 +11,7 @@
  * [`check-model-has-all-columns`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-has-all-columns): Check the model has all columns in the properties file.
  * [`check-model-has-description`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-has-description): Check the model has description.
  * [`check-model-has-meta-keys`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-has-meta-keys): Check the model has keys in the meta part.
- * [`check-model-has-meta-keys`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-has-meta-keys): Check the model has keys in the meta part.
+ * [`check-model-has-keys`](./HOOKS.md#check-model-has-keys): Check the model has required keys.
  * [`check-model-has-properties-file`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-has-properties-file): Check the model has properties file.
  * [`check-model-has-tests-by-name`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-has-tests-by-name): Check the model has a number of tests by test name.
  * [`check-model-has-tests-by-type`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-has-tests-by-type): Check the model has a number of tests by test type.
@@ -274,6 +274,52 @@ You want to make sure that all models have a description.
 #### Known limitations
 
 If you `run` your model and then you delete the description from a properties file, the hook success since the description is still present in `manifest.json`.
+
+-----
+
+### `check-model-has-keys`
+
+Ensures that the model has a list of valid keys. (usually `schema.yml`).
+
+#### Arguments
+
+`--keys`: list of the required keys in the model.
+
+#### Example
+```
+repos:
+- repo: https://github.com/stephanesol/pre-commit-dbt
+ rev: v1.0.0
+ hooks:
+ - id: check-model-has-keys
+   args: ['--keys', 'foo', 'bar', "--"]
+```
+
+:warning: do not forget to include `--` as the last argument. Otherwise `pre-commit` would not be able to separate a list of files with args.
+
+#### When to use it
+
+If every model needs to have certain keys.
+#### Requirements
+
+| Model exists in `manifest.json` <sup id="a1">[1](#f1)</sup> | Model exists in `catalog.json` <sup id="a2">[2](#f2)</sup> |
+| :----: | :----------: |
+| :x: Not needed since it also validates properties files | :x: Not needed |
+
+<sup id="f1">1</sup> It means that you need to run `dbt run`, `dbt compile` before run this hook.<br/>
+<sup id="f2">2</sup> It means that you need to run `dbt docs generate` before run this hook.
+
+#### How it works
+
+- Hook takes all changed `yml` files.
+- The model name is obtained from the `yml` file name.
+- Modified `yml` files are scanned for a model.
+- If any model (from a `yml` file) does not have specified keys, the hook fails.
+- The keys must be in the yml file.
+
+#### Known limitations
+
+The check does not support looking for nested keys. Only top level keys are suported.
 
 -----
 
