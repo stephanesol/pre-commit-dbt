@@ -16,19 +16,21 @@ def has_key(
     paths: Sequence[str], keys: Sequence[str]
 ) -> int:
     target_keys = set(keys)
-    status_code = 0
+    status_code = 1
     filenames = get_filenames(paths, [".yml", ".yaml"])
     #get model schemas from yaml
-    models = get_model_schemas(list(filenames.values()), filenames)
+    models = get_model_schemas(list(filenames.values()), filenames, all_schemas=True)
 
     models_missing_keys = {}
 
-    for schema in schemas:
+    for schema in models:
         schema_keys = set(schema.schema.keys())
         missing_keys = target_keys - schema_keys
         if missing_keys:
             models_missing_keys[schema.file] = missing_keys
-            status_code = 1
+
+    if len(models_missing_keys) == 0:
+        status_code = 0
 
     for model, missing_keys in models_missing_keys.items():
         print(
