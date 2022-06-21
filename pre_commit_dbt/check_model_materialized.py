@@ -22,7 +22,7 @@ def validate_materialization(
     # get manifest nodes that pre-commit found as changed
     models = get_models(manifest, filenames)
     for model in models:
-        model_materialized = set([model.node.get("materialized", None)])
+        model_materialized = set([model.node.get("config", {}).get("materialized", None)])
         valid_materialized = set(materialized)
         if not model_materialized.issubset(valid_materialized):
             status_code = 1
