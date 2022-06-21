@@ -110,6 +110,12 @@
     entry: check-model-tags
     language: python
     types: [sql]
+-   id: check-model-materialized
+    name: Check the model has valid materialized values.
+    description: Ensures that the model has only valid materialized values from the provided list.
+    entry: check-model-materialized
+    language: python
+    types: [sql]
 -   id: check-script-has-no-table-name
     name: Check the script has not table name
     description: Ensures that the script is using only source or ref macro to specify the table name.
