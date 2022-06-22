@@ -2,63 +2,64 @@
 
 :bulb: Click on hook name to view the details.
 
-[`check-column-name-contract`]: https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-column-name-contract
+[`check-column-name-contract`]: HOOKS.md#check-column-name-contract
 
 **Model checks:**
- * [`check-column-desc-are-same`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-column-desc-are-same): Check column descriptions are the same.
+ * [`check-column-desc-are-same`](HOOKS.md#check-column-desc-are-same): Check column descriptions are the same.
  * [`check-column-name-contract`](): Check column name abides to contract.
- * [`check-model-columns-have-desc`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-columns-have-desc): Check the model columns have description.
- * [`check-model-has-all-columns`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-has-all-columns): Check the model has all columns in the properties file.
- * [`check-model-has-description`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-has-description): Check the model has description.
- * [`check-model-has-meta-keys`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-has-meta-keys): Check the model has keys in the meta part.
+ * [`check-model-columns-have-desc`](HOOKS.md#check-model-columns-have-desc): Check the model columns have description.
+ * [`check-model-has-all-columns`](HOOKS.md#check-model-has-all-columns): Check the model has all columns in the properties file.
+ * [`check-model-has-description`](HOOKS.md#check-model-has-description): Check the model has description.
+ * [`check-model-has-meta-keys`](HOOKS.md#check-model-has-meta-keys): Check the model has keys in the meta part.
  * [`check-model-has-keys`](./HOOKS.md#check-model-has-keys): Check the model has required keys.
- * [`check-model-has-properties-file`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-has-properties-file): Check the model has properties file.
- * [`check-model-has-tests-by-name`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-has-tests-by-name): Check the model has a number of tests by test name.
- * [`check-model-has-tests-by-type`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-has-tests-by-type): Check the model has a number of tests by test type.
- * [`check-model-has-tests-by-group`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-has-tests-by-group): Check the model has a number of tests from a group of tests.
- * [`check-model-has-tests`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-has-tests): Check the model has a number of tests.
- * [`check-model-name-contract`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-name-contract): Check model name abides to contract.
- * [`check-model-parents-and-childs`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-parents-and-childs): Check the model has a specific number (max/min) of parents or/and childs.
- * [`check-model-parents-database`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-parents-database): Check the parent model has a specific database.
- * [`check-model-parents-schema`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-parents-schema): Check the parent model has a specific schema.
- * [`check-model-tags`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-model-tags): Check the model has valid tags.
+ * [`check-model-has-properties-file`](HOOKS.md#check-model-has-properties-file): Check the model has properties file.
+ * [`check-model-has-tests-by-name`](HOOKS.md#check-model-has-tests-by-name): Check the model has a number of tests by test name.
+ * [`check-model-has-tests-by-type`](HOOKS.md#check-model-has-tests-by-type): Check the model has a number of tests by test type.
+ * [`check-model-has-tests-by-group`](HOOKS.md#check-model-has-tests-by-group): Check the model has a number of tests from a group of tests.
+ * [`check-model-has-tests`](HOOKS.md#check-model-has-tests): Check the model has a number of tests.
+ * [`check-model-name-contract`](HOOKS.md#check-model-name-contract): Check model name abides to contract.
+ * [`check-model-parents-and-childs`](HOOKS.md#check-model-parents-and-childs): Check the model has a specific number (max/min) of parents or/and childs.
+ * [`check-model-parents-database`](HOOKS.md#check-model-parents-database): Check the parent model has a specific database.
+ * [`check-model-parents-schema`](HOOKS.md#check-model-parents-schema): Check the parent model has a specific schema.
+ * [`check-model-tags`](HOOKS.md#check-model-tags): Check the model has valid tags.
+ * [`check-model-materialized`](HOOKS.md#check-model-materialized): Check the model has valid materialization option.
 
 **Script checks:**
- * [`check-script-semicolon`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-script-semicolon): Check the script does not contain a semicolon.
- * [`check-script-has-no-table-name`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-script-has-no-table-name): Check the script has not table name (is not using `source()` or `ref()` macro for all tables).
- * [`check-script-ref-and-source`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-script-ref-and-source): Check the script has only existing refs and sources.
+ * [`check-script-semicolon`](HOOKS.md#check-script-semicolon): Check the script does not contain a semicolon.
+ * [`check-script-has-no-table-name`](HOOKS.md#check-script-has-no-table-name): Check the script has not table name (is not using `source()` or `ref()` macro for all tables).
+ * [`check-script-ref-and-source`](HOOKS.md#check-script-ref-and-source): Check the script has only existing refs and sources.
 
 **Source checks:**
- * [`check-source-columns-have-desc`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-source-columns-have-desc): Check for source column descriptions.
- * [`check-source-has-all-columns`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-source-has-all-columns): Check the source has all columns in the properties file.
- * [`check-source-table-has-description`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-source-table-has-description): Check the source table has description.
- * [`check-source-has-freshness`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-source-has-freshness): Check the source has the freshness.
- * [`check-source-has-loader`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-source-has-loader): Check the source has loader option.
- * [`check-source-has-meta-keys`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-source-has-meta-keys): Check the source has keys in the meta part.
- * [`check-source-has-tests-by-name`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-source-has-tests-by-name): Check the source has a number of tests by test name.
- * [`check-source-has-tests-by-type`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-source-has-tests-by-type): Check the source has a number of tests by test type.
- * [`check-source-has-tests`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-source-has-tests): Check the source has a number of tests.
- * [`check-source-tags`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-source-tags): Check the source has valid tags.
- * [`check-source-childs`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-source-childs): Check the source has a specific number (max/min) of childs.
+ * [`check-source-columns-have-desc`](HOOKS.md#check-source-columns-have-desc): Check for source column descriptions.
+ * [`check-source-has-all-columns`](HOOKS.md#check-source-has-all-columns): Check the source has all columns in the properties file.
+ * [`check-source-table-has-description`](HOOKS.md#check-source-table-has-description): Check the source table has description.
+ * [`check-source-has-freshness`](HOOKS.md#check-source-has-freshness): Check the source has the freshness.
+ * [`check-source-has-loader`](HOOKS.md#check-source-has-loader): Check the source has loader option.
+ * [`check-source-has-meta-keys`](HOOKS.md#check-source-has-meta-keys): Check the source has keys in the meta part.
+ * [`check-source-has-tests-by-name`](HOOKS.md#check-source-has-tests-by-name): Check the source has a number of tests by test name.
+ * [`check-source-has-tests-by-type`](HOOKS.md#check-source-has-tests-by-type): Check the source has a number of tests by test type.
+ * [`check-source-has-tests`](HOOKS.md#check-source-has-tests): Check the source has a number of tests.
+ * [`check-source-tags`](HOOKS.md#check-source-tags): Check the source has valid tags.
+ * [`check-source-childs`](HOOKS.md#check-source-childs): Check the source has a specific number (max/min) of childs.
 
 **Macro checks:**
- * [`check-macro-has-description`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-macro-has-description): Check the macro has description.
- * [`check-macro-arguments-have-desc`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#check-macro-arguments-have-desc): Check the macro arguments have description.
+ * [`check-macro-has-description`](HOOKS.md#check-macro-has-description): Check the macro has description.
+ * [`check-macro-arguments-have-desc`](HOOKS.md#check-macro-arguments-have-desc): Check the macro arguments have description.
 
 **Modifiers:**
- * [`generate-missing-sources`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#generate-missing-sources): If any source is missing this hook tries to create it.
- * [`generate-model-properties-file`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#generate-model-properties-file): Generate model properties file.
- * [`unify-column-description`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#unify-column-description): Unify column descriptions across all models.
- * [`replace-script-table-names`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#replace-script-table-names): Replace table names with `source()` or `ref()` macros in the script.
- * [`remove-script-semicolon`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#remove-script-semicolon): Remove the semicolon at the end of the script.
+ * [`generate-missing-sources`](HOOKS.md#generate-missing-sources): If any source is missing this hook tries to create it.
+ * [`generate-model-properties-file`](HOOKS.md#generate-model-properties-file): Generate model properties file.
+ * [`unify-column-description`](HOOKS.md#unify-column-description): Unify column descriptions across all models.
+ * [`replace-script-table-names`](HOOKS.md#replace-script-table-names): Replace table names with `source()` or `ref()` macros in the script.
+ * [`remove-script-semicolon`](HOOKS.md#remove-script-semicolon): Remove the semicolon at the end of the script.
 
 **dbt commands:**
- * [`dbt-clean`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#dbt-clean): Run `dbt clean` command.
- * [`dbt-compile`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#dbt-compile): Run `dbt compile` command.
- * [`dbt-deps`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#dbt-deps): Run `dbt deps` command.
- * [`dbt-docs-generate`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#dbt-docs-generate): Run `dbt docs generate` command.
- * [`dbt-run`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#dbt-run): Run `dbt run` command.
- * [`dbt-test`](https://github.com/offbi/pre-commit-dbt/blob/main/HOOKS.md#dbt-test): Run `dbt test` command.
+ * [`dbt-clean`](HOOKS.md#dbt-clean): Run `dbt clean` command.
+ * [`dbt-compile`](HOOKS.md#dbt-compile): Run `dbt compile` command.
+ * [`dbt-deps`](HOOKS.md#dbt-deps): Run `dbt deps` command.
+ * [`dbt-docs-generate`](HOOKS.md#dbt-docs-generate): Run `dbt docs generate` command.
+ * [`dbt-run`](HOOKS.md#dbt-run): Run `dbt run` command.
+ * [`dbt-test`](HOOKS.md#dbt-test): Run `dbt test` command.
 
 ---
 :exclamation:**If you have an idea for a new hook or you found a bug, [let us know](https://github.com/offbi/pre-commit-dbt/issues/new)**:exclamation:
@@ -795,6 +796,48 @@ Make sure you did not typo in tags.
 - The model name is obtained from the `SQL` file name.
 - The manifest is scanned for a model.
 - If any model has different tags than specified, the hook fails.
+
+-----
+
+### `check-model-materialized`
+
+Ensures that the model has only valid materialized options from the provided list.
+
+#### Arguments
+
+`--manifest`: location of `manifest.json` file. Usually `target/manifest.json`. This file contains a full representation of dbt project. **Default: `target/manifest.json`**<br/>
+`--materialized`: A list of materialization options that models can have. i.e `view` or `table`
+
+#### Example
+```
+repos:
+- repo: https://github.com/stephanesol/pre-commit-dbt
+ rev: v1.0.0
+ hooks:
+ - id: check-model-materialized
+   args: ["--tags", "view", "--"]
+```
+
+:warning: do not forget to include `--` as the last argument. Otherwise `pre-commit` would not be able to separate a list of files with args.
+
+#### When to use it
+
+When you want to enforce the type of models that can be created. View or Table.
+#### Requirements
+
+| Model exists in `manifest.json` <sup id="a1">[1](#f1)</sup> | Model exists in `catalog.json` <sup id="a2">[2](#f2)</sup> |
+| :----: | :----------: |
+| :white_check_mark: Yes| :x: Not needed |
+
+<sup id="f1">1</sup> It means that you need to run `dbt run`, `dbt compile` before run this hook.<br/>
+<sup id="f2">2</sup> It means that you need to run `dbt docs generate` before run this hook.
+
+#### How it works
+
+- Hook takes all changed `SQL` files.
+- The model name is obtained from the `SQL` file name.
+- The manifest is scanned for a model.
+- If any model has different materialized values than specified, the hook fails.
 
 -----
 
