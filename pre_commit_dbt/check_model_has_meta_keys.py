@@ -32,6 +32,7 @@ def has_meta_key(
 
     in_models = set()
     for model in models:
+        print(model)
         keys = set(model.node.get("meta", {}).keys())
         model_key_dict[model.filename] = keys
         if set(meta_keys).issubset(keys):
