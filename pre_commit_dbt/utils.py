@@ -127,14 +127,12 @@ def get_disabled_models(
     filenames: Set[str]
 ) -> Generator[Model, None, None]:
     nodes = manifest.get("nodes", {})
-    disabled = list(manifest.get("disabled", {}).keys())
+    disabled = [x.split(".")[-1] for x in manifest.get("disabled", {}).keys() if x.split(".")[0] == "model"]
     for key, node in nodes.items():
-        print(key)
-        if key in disabled:
-            print(f"{key} is disabled")
-            split_key = key.split(".")
-            filename = split_key[-1]
-            if filename in filenames and split_key[0] == "model":
+        split_key = key.split(".")
+        filename = split_key[-1]
+        if filename in filenames and split_key[0] == "model":
+            if filename in disabled:
                 yield Model(key, node.get("name"), filename, node)  # prag
 
 
