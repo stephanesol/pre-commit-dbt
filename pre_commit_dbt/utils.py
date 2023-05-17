@@ -130,7 +130,9 @@ def get_models(
 ) -> Generator[Model, None, None]:
     nodes = manifest.get("nodes", {})
     disabled = list(manifest.get("disabled", {}).keys())
+    print(disabled)
     for key, node in nodes.items():
+        print(key)
         if key in disabled:
             print(f"skipping disabled model {key}")
             continue
