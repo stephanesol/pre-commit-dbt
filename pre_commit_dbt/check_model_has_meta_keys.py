@@ -41,7 +41,7 @@ def has_meta_key(
     in_schemas = set()
     for schema in schemas:
         keys = set(schema.schema.get("meta", {}).keys())
-        enabled = schema.node.get("config",{}).get('enabled', True)
+        enabled = schema.schema.get("config",{}).get('enabled', True)
         if model_key_dict.get(schema.model_name, None):
             model_key_dict[schema.model_name].update({'keys': model_key_dict[schema.model_name]['keys'].update(keys)})
         else:
