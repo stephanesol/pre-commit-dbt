@@ -31,31 +31,32 @@ def has_meta_key(
 
     print(f"schemas : {schemas}")
     # convert to sets
+    model_key_dict = {}
+
     in_models = set()
     for model in models:
         keys = set(model.node.get("meta", {}).keys())
-        print(keys)
+        model_key_dict[model.filename] = keys
         if set(meta_keys).issubset(keys):
             in_models.add(model.filename)
-
-    print(f"in_models: {in_models}")
 
     in_schemas = set()
     for schema in schemas:
         keys = set(schema.schema.get("meta", {}).keys())
-        print(keys)
+        if model_key_dict[schema.model_name]:
+            model_key_dict.update({schema.model_name: model_key_dict[schema.model_name].update(keys)})
+        else:
+            model_key_dict[schema.model_name] = keys
+
         if set(meta_keys).issubset(keys):
             in_schemas.add(schema.model_name)
 
-    print(f"in_schemas: {in_schemas}")
-
     missing = filenames.difference(in_models, in_schemas)
-
-    print(missing)
 
     for model in missing:
         status_code = 1
-        result = "\n- ".join(list(meta_keys))  # pragma: no mutate
+        missing_keys = set(meta_keys).difference(model_key_dict[model])
+        result = "\n- ".join(list(missing_keys))  # pragma: no mutate
         print(
             f"{sqls.get(model)}: "
             f"does not have some of the meta keys defined:\n- {result}",
