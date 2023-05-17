@@ -132,6 +132,8 @@ def get_models(
     disabled = list(manifest.get("disabled", {}).keys())
     print(disabled)
     for key, node in nodes.items():
+        if not key.startswith("model."):
+            continue
         print(key)
         if key in disabled:
             print(f"skipping disabled model {key}")
