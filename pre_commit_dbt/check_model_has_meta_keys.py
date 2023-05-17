@@ -33,7 +33,7 @@ def has_meta_key(
     in_models = set()
     for model in models:
         keys = set(model.node.get("meta", {}).keys())
-        enabled = model.node.get("config",{}).get('enabled',True)
+        enabled = model.node.get("config",{}).get('enabled')
         model_key_dict[model.filename] = {'keys':keys,'enabled':enabled}
         if set(meta_keys).issubset(keys):
             in_models.add(model.filename)
@@ -43,7 +43,8 @@ def has_meta_key(
         keys = set(schema.schema.get("meta", {}).keys())
         enabled = schema.schema.get("config",{}).get('enabled', True)
         if model_key_dict.get(schema.model_name, None):
-            model_key_dict[schema.model_name].update({'keys': model_key_dict[schema.model_name]['keys'].update(keys)})
+            new_status = enabled if not model_key_dict[schema.model_name].get('enabled') else enabled
+            model_key_dict[schema.model_name].update({'keys': model_key_dict[schema.model_name]['keys'].update(keys),'enabled':new_status})
         else:
             model_key_dict[schema.model_name] = {'keys':keys,'enabled':enabled}
 
