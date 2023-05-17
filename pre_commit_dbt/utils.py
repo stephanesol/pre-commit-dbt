@@ -134,6 +134,17 @@ def get_models(
         if filename in filenames and split_key[0] == "model":
             yield Model(key, node.get("name"), filename, node)  # pragma: no mutate
 
+def get_disabled_models(
+    manifest: Dict[str, Any],
+    filenames: Set[str]
+) -> Generator[Model, None, None]:
+    nodes = manifest.get("disabled", {})
+    for key, node in nodes.items():
+        split_key = key.split(".")
+        filename = split_key[-1]
+        if filename in filenames and split_key[0] == "model":
+            yield Model(key, node.get("name"), filename, node)
+
 def get_macros(
     manifest: Dict[str, Any],
     filenames: Set[str],

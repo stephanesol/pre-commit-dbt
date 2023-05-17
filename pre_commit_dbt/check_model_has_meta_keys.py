@@ -11,6 +11,7 @@ from pre_commit_dbt.utils import get_json
 from pre_commit_dbt.utils import get_model_schemas
 from pre_commit_dbt.utils import get_model_sqls
 from pre_commit_dbt.utils import get_models
+from pre_commit_dbt.utils import get_disabled_models
 from pre_commit_dbt.utils import JsonOpenError
 
 
@@ -24,6 +25,8 @@ def has_meta_key(
 
     # get manifest nodes that pre-commit found as changed
     models = get_models(manifest, filenames)
+
+    disabled_models = get_disabled_models(manifest, filenames)
 
     # if user added schema but did not rerun the model
     schemas = get_model_schemas(list(ymls.values()), filenames)
@@ -39,12 +42,8 @@ def has_meta_key(
             in_models.add(model.filename)
 
     in_disabled = set()
-    for model in models:
-        enabled = set(model.node.get("config", {}).get('enabled', True))
-        if not enabled:
-            in_disabled.add(model.filename)
-
-    print(f"{in_disabled}")
+    for model in disabled_models:
+        in_disabled.add(model.filename)
 
     in_schemas = set()
     for schema in schemas:
