@@ -38,11 +38,17 @@ def has_meta_key(
         if keys == set(meta_keys):
             in_models.update(model.filename)
 
-    in_schemas = {
-        schema.model_name
-        for schema in schemas
-        if set(schema.schema.get("meta", {}).keys()) == set(meta_keys)
-    }
+    print(f"in_models: {in_models}")
+
+    in_schemas = {}
+    for schema in schemas:
+        keys = set(schema.schema.get("meta", {}).keys())
+        print(keys)
+        if keys == set(meta_keys):
+            in_schemas.update(schema.model_name)
+
+    print(f"in_schemas: {in_schemas}")
+
     missing = filenames.difference(in_models, in_schemas)
 
     print(missing)
