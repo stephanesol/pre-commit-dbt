@@ -23,6 +23,7 @@ def has_meta_key(
     filenames = set(sqls.keys())
     # get manifest nodes that pre-commit found as changed
     models = get_models(manifest, filenames)
+    print(models)
     # if user added schema but did not rerun the model
     schemas = get_model_schemas(list(ymls.values()), filenames)
     # convert to sets
@@ -44,7 +45,6 @@ def has_meta_key(
         print(
             f"{sqls.get(model)}: "
             f"does not have some of the meta keys defined:\n- {result}",
-            f"hello this is same"
         )
     return status_code
 
