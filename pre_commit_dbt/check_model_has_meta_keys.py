@@ -51,15 +51,14 @@ def has_meta_key(
     missing = filenames.difference(in_models, in_schemas)
 
     for model in missing:
-        if model_key_dict.get(model,{}):
-            status_code = 1
-            model_keys = model_key_dict.get(model,set())
-            missing_keys = set(meta_keys).difference(model_keys) if model_keys else meta_keys
-            result = "\n- ".join(list(missing_keys))  # pragma: no mutate
-            print(
-                f"{sqls.get(model)}: "
-                f"does not have some of the meta keys defined:\n- {result}",
-            )
+        status_code = 1
+        model_keys = model_key_dict.get(model,set())
+        missing_keys = set(meta_keys).difference(model_keys) if model_keys else meta_keys
+        result = "\n- ".join(list(missing_keys))  # pragma: no mutate
+        print(
+            f"{sqls.get(model)}: "
+            f"does not have some of the meta keys defined:\n- {result}",
+        )
     return status_code
 
 
