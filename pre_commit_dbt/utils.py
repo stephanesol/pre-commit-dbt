@@ -128,7 +128,6 @@ def get_disabled_models(
 ) -> Generator[Model, None, None]:
     nodes = manifest.get("nodes", {})
     disabled = [x.split(".")[-1] for x in manifest.get("disabled", {}).keys() if x.split(".")[0] == "model"]
-    print(disabled)
     for key, node in nodes.items():
         split_key = key.split(".")
         filename = split_key[-1]
