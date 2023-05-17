@@ -131,7 +131,7 @@ def get_models(
     nodes = manifest.get("nodes", {})
     disabled = list(manifest.get("disabled", {}).keys())
     for key, node in nodes.items():
-        if key in disabled and not include_disabled:
+        if key in disabled:
             print(f"skipping disabled model {key}")
             continue
         split_key = key.split(".")
