@@ -51,6 +51,8 @@ def has_meta_key(
     missing = filenames.difference(in_models, in_schemas)
 
     for model in missing:
+        if model not in models:
+            continue
         status_code = 1
         model_keys = model_key_dict.get(model,set())
         missing_keys = set(meta_keys).difference(model_keys) if model_keys else meta_keys
