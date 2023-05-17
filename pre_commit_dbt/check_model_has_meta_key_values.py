@@ -36,6 +36,7 @@ def has_meta_key(
 
     in_models = set()
     for model in models:
+        print(meta_key)
         key_value = model.node.get("meta", {}).get(meta_key, {})
         print(key_value)
         model_key_value_dict[model.filename] = key_value
