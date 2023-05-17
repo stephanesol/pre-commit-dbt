@@ -126,12 +126,12 @@ def get_json(json_filename: str) -> Dict[str, Any]:
 def get_models(
     manifest: Dict[str, Any],
     filenames: Set[str],
-    include_disabled: bool = False,
+    exclude_disabled: bool = True,
 ) -> Generator[Model, None, None]:
     nodes = manifest.get("nodes", {})
     disabled = list(manifest.get("disabled", {}).keys())
     for key, node in nodes.items():
-        if key in disabled and not include_disabled:
+        if key in disabled and exclude_disabled:
             continue
         split_key = key.split(".")
         filename = split_key[-1]
