@@ -40,8 +40,8 @@ def has_meta_key(
 
     in_disabled = set()
     for model in models:
-        disabled = set(model.node.get("config", {}).get('enabled', True))
-        if disabled:
+        enabled = set(model.node.get("config", {}).get('enabled', True))
+        if not enabled:
             in_disabled.add(model.filename)
 
     in_schemas = set()
