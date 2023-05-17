@@ -126,14 +126,17 @@ def get_json(json_filename: str) -> Dict[str, Any]:
 def get_models(
     manifest: Dict[str, Any],
     filenames: Set[str],
+    include_disabled: bool = False,
 ) -> Generator[Model, None, None]:
     nodes = manifest.get("nodes", {})
+    disabled = manifest.get("disabled", {})
     for key, node in nodes.items():
+        if key in disabled and not include_disabled:
+            continue
         split_key = key.split(".")
         filename = split_key[-1]
         if filename in filenames and split_key[0] == "model":
             yield Model(key, node.get("name"), filename, node)  # pragma: no mutate
-
 
 def get_macros(
     manifest: Dict[str, Any],
