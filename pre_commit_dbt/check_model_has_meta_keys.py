@@ -26,11 +26,6 @@ def has_meta_key(
     # get manifest nodes that pre-commit found as changed
     models = get_models(manifest, filenames)
 
-    disabled_models = get_disabled_models(manifest, filenames)
-
-    for x in disabled_models:
-        print(x)
-
     # if user added schema but did not rerun the model
     schemas = get_model_schemas(list(ymls.values()), filenames)
 
@@ -44,6 +39,12 @@ def has_meta_key(
         if set(meta_keys).issubset(keys):
             in_models.add(model.filename)
 
+    in_disabled = set()
+    for model in models:
+        disabled = set(model.node.get("config", {}).get('enabled', True))
+        if disabled:
+            in_disabled.add(model.filename)
+
     in_schemas = set()
     for schema in schemas:
         keys = set(schema.schema.get("meta", {}).keys())
@@ -55,7 +56,7 @@ def has_meta_key(
         if set(meta_keys).issubset(keys):
             in_schemas.add(schema.model_name)
 
-    missing = filenames.difference(in_models, in_schemas)
+    missing = filenames.difference(in_models, in_schemas, in_disabled)
 
     for model in missing:
         status_code = 1
