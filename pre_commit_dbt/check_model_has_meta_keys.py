@@ -33,19 +33,19 @@ def has_meta_key(
     in_models = set()
     for model in models:
         keys = set(model.node.get("meta", {}).keys())
-        enabled = model.node.get("config",{}).get('enabled')
-        print(f"enabled : {enabled}")
-        model_key_dict[model.filename] = keys
+        enabled = model.node.get("config",{}).get('enabled',True)
+        model_key_dict[model.filename] = {'keys':keys,'enabled':enabled}
         if set(meta_keys).issubset(keys):
             in_models.add(model.filename)
 
     in_schemas = set()
     for schema in schemas:
         keys = set(schema.schema.get("meta", {}).keys())
+        enabled = schema.node.get("config",{}).get('enabled', True)
         if model_key_dict.get(schema.model_name, None):
-            model_key_dict.update({schema.model_name: model_key_dict[schema.model_name].update(keys)})
+            model_key_dict[schema.model_name].update({'keys': model_key_dict[schema.model_name]['keys'].update(keys)})
         else:
-            model_key_dict[schema.model_name] = keys
+            model_key_dict[schema.model_name] = {'keys':keys,'enabled':enabled}
 
         if set(meta_keys).issubset(keys):
             in_schemas.add(schema.model_name)
@@ -53,16 +53,15 @@ def has_meta_key(
     missing = filenames.difference(in_models, in_schemas)
 
     for model in missing:
-        print(model)
-        print(models.get(model))
-        status_code = 1
-        model_keys = model_key_dict.get(model,set())
-        missing_keys = set(meta_keys).difference(model_keys)
-        result = "\n- ".join(list(missing_keys))  # pragma: no mutate
-        print(
-            f"{sqls.get(model)}: "
-            f"does not have some of the meta keys defined:\n- {result}",
-        )
+        if model_key_dict.get(model,{}).get('enabled'):
+            status_code = 1
+            model_keys = model_key_dict.get(model,{}).get('keys',set())
+            missing_keys = set(meta_keys).difference(model_keys)
+            result = "\n- ".join(list(missing_keys))  # pragma: no mutate
+            print(
+                f"{sqls.get(model)}: "
+                f"does not have some of the meta keys defined:\n- {result}",
+            )
     return status_code
 
 
