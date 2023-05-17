@@ -28,7 +28,9 @@ def has_meta_key(
 
     disabled_models = get_disabled_models(manifest, filenames)
 
-    print(disabled_models)
+    disabled_models_list = list(disabled_models)
+
+    print(disabled_models_list)
 
     # if user added schema but did not rerun the model
     schemas = get_model_schemas(list(ymls.values()), filenames)
