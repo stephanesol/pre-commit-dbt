@@ -128,6 +128,7 @@ def get_disabled_models(
 ) -> Generator[Model, None, None]:
     nodes = manifest.get("nodes", {})
     disabled = list(manifest.get("disabled", {}).keys())
+    print(disabled)
     for key, node in nodes.items():
         if key in disabled:
             split_key = key.split(".")
