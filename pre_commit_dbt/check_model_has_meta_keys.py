@@ -52,7 +52,8 @@ def has_meta_key(
 
     for model in missing:
         status_code = 1
-        missing_keys = set(meta_keys).difference(model_key_dict[model])
+        model_keys = model_key_dict.get(model,set())
+        missing_keys = set(meta_keys).difference(model_keys)
         result = "\n- ".join(list(missing_keys))  # pragma: no mutate
         print(
             f"{sqls.get(model)}: "
