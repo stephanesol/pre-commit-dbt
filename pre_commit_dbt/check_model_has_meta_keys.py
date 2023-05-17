@@ -40,7 +40,7 @@ def has_meta_key(
     in_schemas = set()
     for schema in schemas:
         keys = set(schema.schema.get("meta", {}).keys())
-        if model_key_dict[schema.model_name]:
+        if model_key_dict.get(schema.model_name, None):
             model_key_dict.update({schema.model_name: model_key_dict[schema.model_name].update(keys)})
         else:
             model_key_dict[schema.model_name] = keys
