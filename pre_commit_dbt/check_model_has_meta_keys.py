@@ -31,7 +31,7 @@ def has_meta_key(
 
     print(f"schemas : {schemas}")
     # convert to sets
-    in_models = {}
+    in_models = set()
     for model in models:
         keys = set(model.node.get("meta", {}).keys())
         print(keys)
@@ -40,7 +40,7 @@ def has_meta_key(
 
     print(f"in_models: {in_models}")
 
-    in_schemas = {}
+    in_schemas = set()
     for schema in schemas:
         keys = set(schema.schema.get("meta", {}).keys())
         print(keys)
