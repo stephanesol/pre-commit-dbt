@@ -130,9 +130,9 @@ def get_models(
 ) -> Generator[Model, None, None]:
     nodes = manifest.get("nodes", {})
     disabled = manifest.get("disabled", {}).keys()
-    print(disabled)
     for key, node in nodes.items():
         if key in disabled and not include_disabled:
+            print(f"skipping disabled model {key}")
             continue
         split_key = key.split(".")
         filename = split_key[-1]
