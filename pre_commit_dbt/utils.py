@@ -122,17 +122,26 @@ def get_json(json_filename: str) -> Dict[str, Any]:
     except Exception as e:
         raise JsonOpenError(e)
 
-
-def get_models(
+def get_disabled_models(
     manifest: Dict[str, Any],
-    filenames: Set[str],
-    exclude_disabled: bool = True,
+    filenames: Set[str]
 ) -> Generator[Model, None, None]:
     nodes = manifest.get("nodes", {})
     disabled = list(manifest.get("disabled", {}).keys())
     for key, node in nodes.items():
-        if key in disabled and exclude_disabled:
-            continue
+        if key in disabled:
+            split_key = key.split(".")
+            filename = split_key[-1]
+            if filename in filenames and split_key[0] == "model":
+                yield Model(key, node.get("name"), filename, node)  # prag
+
+
+def get_models(
+    manifest: Dict[str, Any],
+    filenames: Set[str]
+) -> Generator[Model, None, None]:
+    nodes = manifest.get("nodes", {})
+    for key, node in nodes.items():
         split_key = key.split(".")
         filename = split_key[-1]
         if filename in filenames and split_key[0] == "model":
