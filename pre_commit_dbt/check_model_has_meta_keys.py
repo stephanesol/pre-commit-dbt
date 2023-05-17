@@ -33,20 +33,17 @@ def has_meta_key(
     in_models = set()
     for model in models:
         keys = set(model.node.get("meta", {}).keys())
-        enabled = model.node.get("config",{}).get('enabled')
-        model_key_dict[model.filename] = {'keys':keys,'enabled':enabled}
+        model_key_dict[model.filename] = keys
         if set(meta_keys).issubset(keys):
             in_models.add(model.filename)
 
     in_schemas = set()
     for schema in schemas:
         keys = set(schema.schema.get("meta", {}).keys())
-        enabled = schema.schema.get("config",{}).get('enabled', True)
         if model_key_dict.get(schema.model_name, None):
-            new_status = enabled if not model_key_dict[schema.model_name].get('enabled') else enabled
-            model_key_dict[schema.model_name].update({'keys': model_key_dict[schema.model_name]['keys'].update(keys),'enabled':new_status})
+            model_key_dict[schema.model_name].update({'keys': model_key_dict[schema.model_name].update(keys)})
         else:
-            model_key_dict[schema.model_name] = {'keys':keys,'enabled':enabled}
+            model_key_dict[schema.model_name] = keys
 
         if set(meta_keys).issubset(keys):
             in_schemas.add(schema.model_name)
@@ -56,7 +53,7 @@ def has_meta_key(
     for model in missing:
         if model_key_dict.get(model,{}).get('enabled'):
             status_code = 1
-            model_keys = model_key_dict.get(model,{}).get('keys',set())
+            model_keys = model_key_dict.get(model,set())
             missing_keys = set(meta_keys).difference(model_keys) if model_keys else meta_keys
             result = "\n- ".join(list(missing_keys))  # pragma: no mutate
             print(
