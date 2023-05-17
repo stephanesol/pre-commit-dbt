@@ -56,7 +56,7 @@ def has_meta_key(
         if model_key_dict.get(model,{}).get('enabled'):
             status_code = 1
             model_keys = model_key_dict.get(model,{}).get('keys',set())
-            missing_keys = set(meta_keys).difference(model_keys)
+            missing_keys = set(meta_keys).difference(model_keys) if model_keys else meta_keys
             result = "\n- ".join(list(missing_keys))  # pragma: no mutate
             print(
                 f"{sqls.get(model)}: "
