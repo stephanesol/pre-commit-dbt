@@ -44,6 +44,8 @@ def has_meta_key(
         if not enabled:
             in_disabled.add(model.filename)
 
+    print(f"{in_disabled}")
+
     in_schemas = set()
     for schema in schemas:
         keys = set(schema.schema.get("meta", {}).keys())
