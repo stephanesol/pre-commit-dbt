@@ -52,7 +52,7 @@ def has_meta_key(
 
     for model in missing:
         print(model)
-        print(ymls.get(model))
+        print(models)
         status_code = 1
         model_keys = model_key_dict.get(model,set())
         missing_keys = set(meta_keys).difference(model_keys)
