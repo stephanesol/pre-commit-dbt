@@ -35,7 +35,7 @@ def has_meta_key(
     for model in models:
         keys = set(model.node.get("meta", {}).keys())
         print(keys)
-        if keys == set(meta_keys):
+        if set(meta_keys).issubset(keys):
             in_models.update(model.filename)
 
     print(f"in_models: {in_models}")
@@ -44,7 +44,7 @@ def has_meta_key(
     for schema in schemas:
         keys = set(schema.schema.get("meta", {}).keys())
         print(keys)
-        if keys == set(meta_keys):
+        if set(meta_keys).issubset(keys):
             in_schemas.update(schema.model_name)
 
     print(f"in_schemas: {in_schemas}")
