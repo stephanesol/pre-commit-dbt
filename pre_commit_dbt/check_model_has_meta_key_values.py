@@ -77,7 +77,14 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     add_manifest_args(parser)
 
     parser.add_argument(
-        "--meta-keys",
+        "--meta-key",
+        nargs="+",
+        required=True,
+        help="List of required key in meta part of model.",
+    )
+
+    parser.add_argument(
+        "--meta-key-values",
         nargs="+",
         required=True,
         help="List of required key in meta part of model.",
@@ -92,7 +99,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         return 1
 
     return has_meta_key(
-        paths=args.filenames, manifest=manifest, meta_keys=args.meta_keys
+        paths=args.filenames, manifest=manifest, meta_key=args.meta_key, meta_key_values=args.meta_key_values
     )
 
 
