@@ -44,6 +44,7 @@ def has_meta_key(
         print(
             f"{sqls.get(model)}: "
             f"does not have some of the meta keys defined:\n- {result}",
+            f"hello this is same"
         )
     return status_code
 
