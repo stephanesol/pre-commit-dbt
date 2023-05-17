@@ -23,7 +23,6 @@ def has_meta_key(
     filenames = set(sqls.keys())
     # get manifest nodes that pre-commit found as changed
     models = get_models(manifest, filenames)
-    print(manifest)
     # if user added schema but did not rerun the model
     schemas = get_model_schemas(list(ymls.values()), filenames)
     # convert to sets
@@ -38,6 +37,8 @@ def has_meta_key(
         if set(schema.schema.get("meta", {}).keys()) == set(meta_keys)
     }
     missing = filenames.difference(in_models, in_schemas)
+
+    print(missing)
 
     for model in missing:
         status_code = 1
