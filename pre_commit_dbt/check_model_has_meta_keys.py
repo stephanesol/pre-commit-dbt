@@ -11,7 +11,6 @@ from pre_commit_dbt.utils import get_json
 from pre_commit_dbt.utils import get_model_schemas
 from pre_commit_dbt.utils import get_model_sqls
 from pre_commit_dbt.utils import get_models
-from pre_commit_dbt.utils import get_disabled_models
 from pre_commit_dbt.utils import JsonOpenError
 
 
