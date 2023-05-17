@@ -51,6 +51,13 @@
     language: python
     types_or: [yaml, sql]
     require_serial: true # because we need to process YAML and SQL
+-   id: check-model-has-meta-key-values
+    name: Check the model has valid values for a target meta key
+    description: Ensures that the model has a list of valid meta key values.
+    entry: check-model-has-meta-key-values
+    language: python
+    types_or: [yaml, sql]
+    require_serial: true # because we need to process YAML and SQL
 -   id: check-model-has-keys
     name: Check the model has keys
     description: Ensures that the model has a list of valid keys.
