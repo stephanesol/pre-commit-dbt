@@ -143,7 +143,7 @@ def get_disabled_models(
         split_key = key.split(".")
         filename = split_key[-1]
         if filename in filenames and split_key[0] == "model":
-            yield Model(key, node.get("name"), filename, node)
+            yield Model(key, node[0].get("name"), filename, node[0])
 
 def get_macros(
     manifest: Dict[str, Any],
