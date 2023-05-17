@@ -21,16 +21,23 @@ def has_meta_key(
     ymls = get_filenames(paths, [".yml", ".yaml"])
     sqls = get_model_sqls(paths, manifest)
     filenames = set(sqls.keys())
+
+    print(f"target keys : {meta_keys}")
+    print(f"filenames : {filenames}")
     # get manifest nodes that pre-commit found as changed
     models = get_models(manifest, filenames)
     # if user added schema but did not rerun the model
     schemas = get_model_schemas(list(ymls.values()), filenames)
+
+    print(f"schemas : {schemas}")
     # convert to sets
-    in_models = {
-        model.filename
-        for model in models
-        if set(model.node.get("meta", {}).keys()) == set(meta_keys)
-    }
+    in_models = {}
+    for model in models:
+        keys = set(model.node.get("meta", {}).keys())
+        print(keys)
+        if keys == set(meta_keys):
+            in_models.update(model.filename)
+
     in_schemas = {
         schema.model_name
         for schema in schemas
