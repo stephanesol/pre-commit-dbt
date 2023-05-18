@@ -37,7 +37,6 @@ def has_meta_key(
     in_models = set()
     for model in models:
         key_value = model.node.get("meta", {}).get(meta_key,'unknown')
-        print(key_value)
         model_key_value_dict[model.filename] = key_value
         if key_value in meta_key_values:
             in_models.add(model.filename)
