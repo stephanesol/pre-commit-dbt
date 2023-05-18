@@ -36,7 +36,7 @@ def has_meta_key(
 
     in_models = set()
     for model in models:
-        key_value = model.node.get("meta", {}).get(meta_key, {})
+        key_value = model.node.get("meta", {}).get(meta_key)
         model_key_value_dict[model.filename] = key_value
         if set(key_value).issubset(meta_key_values):
             in_models.add(model.filename)
@@ -47,7 +47,7 @@ def has_meta_key(
 
     in_schemas = set()
     for schema in schemas:
-        key_value = set(schema.schema.get("meta", {}).get(meta_key, {}))
+        key_value = set(schema.schema.get("meta", {}).get(meta_key))
         model_key_value_dict[schema.model_name] = key_value
 
         if set(key_value).issubset(meta_key_values):
@@ -62,7 +62,7 @@ def has_meta_key(
         result = "\n- ".join(list(missing_keys))  # pragma: no mutate
         print(
             f"{sqls.get(model)}: "
-            f"value: {key_value} for key: {meta_key} is not valid:\n-",
+            f"{key_value} is not a valid value for key: {meta_key}:\n-",
             f"must be one of {meta_key_values}",
         )
     return status_code
