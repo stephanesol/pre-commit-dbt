@@ -38,7 +38,7 @@ def has_meta_key(
     for model in models:
         key_value = model.node.get("meta", {}).get(meta_key)
         model_key_value_dict[model.filename] = key_value
-        if set(key_value).issubset(meta_key_values):
+        if key_value not in meta_key_values:
             in_models.add(model.filename)
 
     in_disabled = set()
@@ -50,7 +50,7 @@ def has_meta_key(
         key_value = schema.schema.get("meta", {}).get(meta_key)
         model_key_value_dict[schema.model_name] = key_value
 
-        if set(key_value).issubset(meta_key_values):
+        if key_value not in meta_key_values:
             in_schemas.add(schema.model_name)
 
     missing = filenames.difference(in_models, in_schemas, in_disabled)
