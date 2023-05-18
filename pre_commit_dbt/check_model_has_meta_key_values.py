@@ -62,7 +62,7 @@ def has_meta_key(
         result = "\n- ".join(list(missing_keys))  # pragma: no mutate
         print(
             f"{sqls.get(model)}: "
-            f"the following values are no valid for the key {meta_key}:\n- {result}",
+            f"value: {key_value} for key: {meta_key} is not valid:\n-",
             f"must be one of {meta_key_values}",
         )
     return status_code
