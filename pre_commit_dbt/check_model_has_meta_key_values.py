@@ -48,10 +48,7 @@ def has_meta_key(
     in_schemas = set()
     for schema in schemas:
         key_value = set(schema.schema.get("meta", {}).get(meta_key, {}))
-        if model_key_value_dict.get(schema.model_name, None):
-            model_key_value_dict[schema.model_name].update(key_value)
-        else:
-            model_key_value_dict[schema.model_name] = key_value
+        model_key_value_dict[schema.model_name] = key_value
 
         if set(key_value).issubset(meta_key_values):
             in_schemas.add(schema.model_name)
