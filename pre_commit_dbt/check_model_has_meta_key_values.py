@@ -57,7 +57,7 @@ def has_meta_key(
 
     for model in missing:
         status_code = 1
-        model_keys = model_key_value_dict.get(model,set())
+        model_keys = model_key_value_dict.get(model)
         missing_keys = set(meta_key_values).difference(model_keys) if model_keys else meta_key_values
         result = "\n- ".join(list(missing_keys))  # pragma: no mutate
         print(
