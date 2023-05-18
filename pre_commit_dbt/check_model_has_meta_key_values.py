@@ -36,9 +36,7 @@ def has_meta_key(
 
     in_models = set()
     for model in models:
-        print(meta_key)
         key_value = model.node.get("meta", {}).get(meta_key, {})
-        print(key_value)
         model_key_value_dict[model.filename] = key_value
         if set(key_value).issubset(meta_key_values):
             in_models.add(model.filename)
@@ -51,7 +49,7 @@ def has_meta_key(
     for schema in schemas:
         key_value = set(schema.schema.get("meta", {}).get(meta_key, {}))
         if model_key_value_dict.get(schema.model_name, None):
-            model_key_value_dict[schema.model_name].update(model_key_value_dict[schema.model_name].update(key_value))
+            model_key_value_dict[schema.model_name].update(key_value)
         else:
             model_key_value_dict[schema.model_name] = key_value
 
