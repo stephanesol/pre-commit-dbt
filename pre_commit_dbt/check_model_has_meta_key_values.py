@@ -80,16 +80,16 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     parser.add_argument(
         "--meta-key",
-        nargs="+",
+        type=str,
         required=True,
-        help="List of required key in meta part of model.",
+        help="Key to Check for Values",
     )
 
     parser.add_argument(
         "--meta-key-values",
         nargs="+",
         required=True,
-        help="List of required key in meta part of model.",
+        help="List of required values in meta part of model for a target key.",
     )
 
     args = parser.parse_args(argv)
