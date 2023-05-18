@@ -39,7 +39,7 @@ def has_meta_key(
         key_value = model.node.get("meta", {}).get(meta_key,'unknown')
         print(key_value)
         model_key_value_dict[model.filename] = key_value
-        if key_value not in meta_key_values:
+        if key_value in meta_key_values:
             in_models.add(model.filename)
 
     in_disabled = set()
@@ -51,21 +51,20 @@ def has_meta_key(
         key_value = schema.schema.get("meta", {}).get(meta_key,'unknown')
         model_key_value_dict[schema.model_name] = key_value
 
-        if key_value not in meta_key_values:
+        if key_value in meta_key_values:
             in_schemas.add(schema.model_name)
 
     missing = filenames.difference(in_models, in_schemas, in_disabled)
 
     for model in missing:
         status_code = 1
-        model_keys = model_key_value_dict.get(model)
-        missing_keys = set(meta_key_values).difference(model_keys) if model_keys else meta_key_values
-        result = "\n- ".join(list(missing_keys))  # pragma: no mutate
+        key_value = model_key_value_dict.get(model)
         print(
             f"{sqls.get(model)}: "
             f"{key_value} is not a valid value for key: {meta_key}:\n-",
             f"must be one of {meta_key_values}",
         )
+
     return status_code
 
 
