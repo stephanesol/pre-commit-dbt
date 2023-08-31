@@ -52,6 +52,7 @@ def has_table_name(
 ) -> Tuple[int, Set[str]]:
     status_code = 0
     sql_clean = replace_comments(sql)
+    sql_clean = replace_reserved_functions(sql)
     sql_clean = add_space_to_parenthesis(sql_clean)
     sql_clean = add_space_to_source_ref(sql_clean)
     sql_split = re.split(REGEX_SPLIT, sql_clean)
