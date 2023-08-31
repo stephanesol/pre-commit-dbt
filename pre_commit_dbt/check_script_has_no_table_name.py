@@ -12,6 +12,7 @@ from pre_commit_dbt.utils import add_filenames_args
 REGEX_COMMENTS = (
     r"(?<=(\/\*|\{#))((.|[\r\n])+?)(?=(\*+\/|#\}))|[ \t]*--.*"
 )
+REGEX_RESERVED = r"is (not )?distinct from"
 REGEX_SPLIT = r"[\s]+"
 IGNORE_WORDS = ["", "(", "{{","simple_cte"]  # pragma: no mutate
 REGEX_PARENTHESIS = r"([\(\)])"  # pragma: no mutate
@@ -36,6 +37,8 @@ def prev_cur_next_iter(
 def replace_comments(sql: str) -> str:
     return re.sub(REGEX_COMMENTS, "", sql)
 
+def replace_reserved_functions(sql: str) -> str:
+    return re.sub(REGEX_RESERVED, "", sql, flags=re.IGNORECASE)
 
 def add_space_to_parenthesis(sql: str) -> str:
     return re.sub(REGEX_PARENTHESIS, r" \1 ", sql)
