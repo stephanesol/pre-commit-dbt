@@ -15,6 +15,7 @@ REGEX_COMMENTS = (
 REGEX_JINJA_LOGIC = (
     r"\{%\s*if\s+[^%]*\s*%\}"
 )
+REGEX_STRING_LITERAL = r"'[^']*?'"
 REGEX_RESERVED = r"is (not )?distinct from"
 REGEX_SPLIT = r"[\s]+"
 IGNORE_WORDS = ["", "(", "{{","simple_cte"]  # pragma: no mutate
@@ -43,6 +44,9 @@ def replace_comments(sql: str) -> str:
 def replace_jinja_logic(sql: str) -> str:
     return re.sub(REGEX_JINJA_LOGIC, "", sql, flags=re.IGNORECASE)
 
+def replace_string_literals(sql: str) -> str:
+    return re.sub(REGEX_STRING_LITERAL, "", sql)
+
 def replace_reserved_functions(sql: str) -> str:
     return re.sub(REGEX_RESERVED, "", sql, flags=re.IGNORECASE)
 
@@ -59,6 +63,7 @@ def has_table_name(
     status_code = 0
     sql_clean = replace_comments(sql)
     sql_clean = replace_jinja_logic(sql_clean)
+    sql_clean = replace_string_literals(sql_clean)
     sql_clean = replace_reserved_functions(sql_clean)
     sql_clean = add_space_to_parenthesis(sql_clean)
     sql_clean = add_space_to_source_ref(sql_clean)
